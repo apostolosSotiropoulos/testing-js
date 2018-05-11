@@ -1,10 +1,9 @@
 /* Looping through images */
 for (let i = 1; i < 6; i++) {
   let newImage = document.createElement('img')
-  newImage.path = 'images/pic' + i + '.jpg'
-  newImage.setAttribute('src', newImage.path)
-  newImage.onclick = function () {
-    document.querySelector('.displayed-img').src = newImage.path
+  newImage.setAttribute('src', 'images/pic' + i + '.jpg')
+  newImage.onclick = function (e) {
+    document.querySelector('.displayed-img').src = e.target.getAttribute('src')
   }
   document.querySelector('.thumb-bar').appendChild(newImage)
 }
