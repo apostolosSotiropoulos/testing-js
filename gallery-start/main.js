@@ -5,9 +5,8 @@ btn = document.querySelector('button')
 var overlay = document.querySelector('.overlay')
 
 /* Looping through images */
-for (var i = 1; i < 6; i++) {
-  // wrong because https://wesbos.com/for-of-es6/
-  var newImage = document.createElement('img')
+for (let i = 1; i < 6; i++) {
+  let newImage = document.createElement('img')
   newImage.path = 'images/pic' + i + '.jpg'
   newImage.setAttribute('src', newImage.path)
   newImage.onclick = function () {
