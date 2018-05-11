@@ -1,3 +1,4 @@
+// TODO: hide global vars
 var displayedImage = document.querySelector('.displayed-img')
 var thumbBar = document.querySelector('.thumb-bar')
 
@@ -13,8 +14,19 @@ for (let i = 1; i < 6; i++) {
 }
 
 /* Wiring up the Darken/Lighten button */
+// TODO: hide global vars
 var overlay = document.querySelector('.overlay')
 var btn = document.querySelector('button')
 btn.onclick = function () {
-  overlay.setAttribute('style', 'background-color: rgba(0,0,0,0.5)')
+  let overlayType = overlay.className.split(' ')[1]
+  switch (overlayType) {
+    case 'full-transparent':
+      overlay.className = 'overlay semi-transparent'
+      btn.innerHTML = 'Lighten'
+      break
+    case 'semi-transparent':
+      overlay.className = 'overlay full-transparent'
+      btn.innerHTML = 'Darken'
+      break
+  }
 }

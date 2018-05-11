@@ -21,7 +21,14 @@ body {
   left: 0;
   width: 640px;
   height: 480px;
+}
+
+.full-transparent {
   background-color: rgba(0,0,0,0);
+}
+
+.semi-transparent {
+  background-color: rgba(0,0,0,0.5);
 }
 
 button {
