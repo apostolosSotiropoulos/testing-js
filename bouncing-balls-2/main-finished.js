@@ -97,21 +97,23 @@ while (movables.length < 25) {
   movables.push(ball)
 }
 
-// define special ball
+// define hole
 
-var specialBall = new Movable(
-  (width - 20) / 10,
-  height - 20 - 100,
-  0,
-  0,
-  'white',
-  20
-)
+function Hole (x, y) {
+  Movable.call(this, x, y, 0, 0, 'white', 20)
+}
 
-specialBall.collisionHandler = function (j) {
+Hole.prototype = Object.create(Movable.prototype)
+
+Hole.prototype.collisionHandler = function (j) {
   movables.splice(j, 1)
   document.querySelector('h2').innerHTML = 'movables count:' + movables.length
 }
+
+var specialBall = new Hole(
+  (width - 20) / 10,
+  height - 20 - 100
+)
 
 movables.push(specialBall)
 
