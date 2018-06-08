@@ -136,4 +136,5 @@ function loop () {
   requestAnimationFrame(loop)
 }
 
+document.querySelector('h2').innerHTML = 'balls count:' + balls.length
 loop()
