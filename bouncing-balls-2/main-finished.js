@@ -101,6 +101,18 @@ while (movables.length < 25) {
 
 function Hole (x, y) {
   Movable.call(this, x, y, 0, 0, 'white', 20)
+  var that = this
+  window.onkeydown = function (e) {
+    if (e.keyCode === 37) {
+      that.x -= 10
+    } else if (e.keyCode === 39) {
+      that.x += 10
+    } else if (e.keyCode === 38) {
+      that.y -= 10
+    } else if (e.keyCode === 40) {
+      that.y += 10
+    }
+  }
 }
 
 Hole.prototype = Object.create(Movable.prototype)
