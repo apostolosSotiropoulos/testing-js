@@ -19,7 +19,9 @@ h1 {
   margin: 0;
   top: -4px;
   right: 5px;
+}
 
+.whitish {
   color: transparent;
-  text-shadow: 0 0 4px white;
+  text-shadow: 0 0 2px white;
 }
