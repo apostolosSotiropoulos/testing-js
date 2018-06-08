@@ -112,7 +112,7 @@ Hole.prototype.collisionHandler = function (j) {
 
 var specialBall = new Hole(
   (width - 20) / 10,
-  height - 20 - 100
+  (height - 20) / 1.5
 )
 
 movables.push(specialBall)
