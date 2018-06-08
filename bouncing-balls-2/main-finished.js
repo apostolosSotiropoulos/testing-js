@@ -66,7 +66,7 @@ Ball.prototype.collisionDetect = function () {
       var distance = Math.sqrt(dx * dx + dy * dy)
 
       if (distance < this.size + balls[j].size) {
-        balls[j].color = this.color = 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')'
+        this.color = 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')'
       }
     }
   }
@@ -92,6 +92,34 @@ while (balls.length < 25) {
   )
   balls.push(ball)
 }
+
+// define special ball
+
+var specialBall = new Ball(
+  (width - 20) / 10,
+  height - 20 - 100,
+  0,
+  0,
+  'white',
+  20
+)
+
+specialBall.collisionDetect = function () {
+  for (var j = 0; j < balls.length; j++) {
+    if (!(this === balls[j])) {
+      var dx = this.x - balls[j].x
+      var dy = this.y - balls[j].y
+      var distance = Math.sqrt(dx * dx + dy * dy)
+
+      if (distance < this.size + balls[j].size) {
+        balls.splice(j,1)
+        document.querySelector('h2').innerHTML = 'balls count:' + balls.length
+      }
+    }
+  }
+}
+
+balls.push(specialBall)
 
 // define loop that keeps drawing the scene constantly
 
