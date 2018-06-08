@@ -104,6 +104,7 @@ function Hole (x, y) {
 }
 
 Hole.prototype = Object.create(Movable.prototype)
+Hole.prototype.constructor = Hole
 
 Hole.prototype.collisionHandler = function (j) {
   movables.splice(j, 1)
