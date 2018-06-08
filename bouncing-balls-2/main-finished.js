@@ -118,15 +118,6 @@ var specialBall = new Hole(
 
 movables.push(specialBall)
 
-// second hole easily added since class extention
-
-var specialBall2 = new Hole(
-  (width - 20) / 1.3,
-  (height - 20) / 12
-)
-
-movables.push(specialBall2)
-
 // define loop that keeps drawing the scene constantly
 
 function loop () {
