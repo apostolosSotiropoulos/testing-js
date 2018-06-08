@@ -13,9 +13,9 @@ function random (min, max) {
   return num
 }
 
-// define Ball constructor
+// define Movable constructor
 
-function Ball (x, y, velX, velY, color, size) {
+function Movable (x, y, velX, velY, color, size) {
   this.x = x
   this.y = y
   this.velX = velX
@@ -26,7 +26,7 @@ function Ball (x, y, velX, velY, color, size) {
 
 // define ball draw method
 
-Ball.prototype.draw = function () {
+Movable.prototype.draw = function () {
   ctx.beginPath()
   ctx.fillStyle = this.color
   ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI)
@@ -35,7 +35,7 @@ Ball.prototype.draw = function () {
 
 // define ball update method
 
-Ball.prototype.update = function () {
+Movable.prototype.update = function () {
   if ((this.x + this.size) >= width) {
     this.velX = -(this.velX)
   }
@@ -58,29 +58,33 @@ Ball.prototype.update = function () {
 
 // define ball collision detection
 
-Ball.prototype.collisionDetect = function () {
-  for (var j = 0; j < balls.length; j++) {
-    if (!(this === balls[j])) {
-      var dx = this.x - balls[j].x
-      var dy = this.y - balls[j].y
+Movable.prototype.collisionDetect = function () {
+  for (var j = 0; j < movables.length; j++) {
+    if (!(this === movables[j])) {
+      var dx = this.x - movables[j].x
+      var dy = this.y - movables[j].y
       var distance = Math.sqrt(dx * dx + dy * dy)
 
-      if (distance < this.size + balls[j].size) {
-        this.color = 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')'
+      if (distance < this.size + movables[j].size) {
+        this.collisionHandler(j)
       }
     }
   }
 }
 
-// define array to store balls
+Movable.prototype.collisionHandler = function (someIndex) {
+  this.color = 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')'
+}
 
-var balls = []
+// define array to store movables
 
-// initially add balls to array
+var movables = []
 
-while (balls.length < 25) {
+// initially add movables to array
+
+while (movables.length < 25) {
   var size = random(10, 20)
-  var ball = new Ball(
+  var ball = new Movable(
     // ball position always drawn at least one ball width
     // away from the adge of the canvas, to avoid drawing errors
     random(0 + size, width - size),
@@ -90,12 +94,12 @@ while (balls.length < 25) {
     'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
     size
   )
-  balls.push(ball)
+  movables.push(ball)
 }
 
 // define special ball
 
-var specialBall = new Ball(
+var specialBall = new Movable(
   (width - 20) / 10,
   height - 20 - 100,
   0,
@@ -104,22 +108,12 @@ var specialBall = new Ball(
   20
 )
 
-specialBall.collisionDetect = function () {
-  for (var j = 0; j < balls.length; j++) {
-    if (!(this === balls[j])) {
-      var dx = this.x - balls[j].x
-      var dy = this.y - balls[j].y
-      var distance = Math.sqrt(dx * dx + dy * dy)
-
-      if (distance < this.size + balls[j].size) {
-        balls.splice(j,1)
-        document.querySelector('h2').innerHTML = 'balls count:' + balls.length
-      }
-    }
-  }
+specialBall.collisionHandler = function (j) {
+  movables.splice(j, 1)
+  document.querySelector('h2').innerHTML = 'movables count:' + movables.length
 }
 
-balls.push(specialBall)
+movables.push(specialBall)
 
 // define loop that keeps drawing the scene constantly
 
@@ -127,14 +121,14 @@ function loop () {
   ctx.fillStyle = 'rgba(0,0,0,0.25)'
   ctx.fillRect(0, 0, width, height)
 
-  for (var i = 0; i < balls.length; i++) {
-    balls[i].draw()
-    balls[i].update()
-    balls[i].collisionDetect()
+  for (var i = 0; i < movables.length; i++) {
+    movables[i].draw()
+    movables[i].update()
+    movables[i].collisionDetect()
   }
 
   requestAnimationFrame(loop)
 }
 
-document.querySelector('h2').innerHTML = 'balls count:' + balls.length
+document.querySelector('h2').innerHTML = 'movables count:' + movables.length
 loop()
