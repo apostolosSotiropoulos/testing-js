@@ -1,20 +1,20 @@
-function main () {
-  function addToList () {
-    let newItem = document.createElement('li')
-    newItem.innerText = document.querySelector('input').value
-    let remover = document.createElement('button')
-    remover.innerText = 'Remove'
-    $(remover).on('click', removeFromList)
-    newItem.appendChild(remover)
-    document.querySelector('ul').appendChild(newItem)
-    document.querySelector('input').value = ''
-  }
+var list = document.querySelector('ul')
+var input = document.querySelector('input')
+var button = document.querySelector('button')
 
-  function removeFromList (e) {
-    document.querySelector('ul').removeChild(e.target.parentNode)
+button.onclick = function () {
+  var myItem = input.value
+  input.value = ''
+  var listItem = document.createElement('li')
+  var listText = document.createElement('span')
+  var listBtn = document.createElement('button')
+  listItem.appendChild(listText)
+  listText.textContent = myItem
+  listItem.appendChild(listBtn)
+  listBtn.textContent = 'Delete'
+  list.appendChild(listItem)
+  listBtn.onclick = function (e) {
+    list.removeChild(listItem)
   }
-
-  $('#adder').on('click', addToList)
+  input.focus()
 }
-
-$(main)
