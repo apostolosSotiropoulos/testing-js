@@ -26,7 +26,18 @@
   </div>
 
   <script>
+    function expandMyDiv() {
+      var height = window.innerHeight
+      var width = window.innerWidth
+      var element = document.querySelector('div')
+      element.style.height = height + 'px'
+      element.style.width = width + 'px'
+    };
 
+    expandMyDiv()
+
+    window.onresize = expandMyDiv
+   
   </script>
 </body>
 
