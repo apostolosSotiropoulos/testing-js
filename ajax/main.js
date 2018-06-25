@@ -1,12 +1,10 @@
 function updateDisplay (dropdownChoice) {
   var url = dropdownChoice.replace(' ', '').toLowerCase() + '.txt'
-  var request = new XMLHttpRequest()
-  request.open('GET', url)
-  request.responseType = 'text'
-  request.onload = function () {
-    poemDisplay.innerHTML = request.response
-  }
-  request.send()
+  fetch(url).then(function (response) {
+    response.text().then(function (text) {
+      poemDisplay.innerText = text
+    })
+  })
 }
 
 var verseChoose = document.querySelector('select')
