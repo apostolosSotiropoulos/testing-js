@@ -15,19 +15,18 @@ class Stats {
     if (!Array.isArray(data) || !data.every((el) => Number.isInteger(el))) throw 'please provide an array of integers'
     this.data = data
   }
-  mean (array = this.data) {
-    const length = array.length
-    if (length === 0) return 0
-    return array.reduce((acc, el) => acc + el, 0) / length
+  mean () {
+    return Stats.mean(this.data)
   }
-  median (array = this.data) {
+  median () {
+    const array = this.data.sort()
     const length = array.length
     const lengthMod = length % 2
-    const lengthDiv = (array.length - lengthMod) / 2
-    return lengthMod == 0 ? this.mean(array.slice(lengthDiv - 1, lengthDiv + 1)) : array[lengthDiv]
+    const lengthDiv = (length - lengthMod) / 2
+    return lengthMod === 0 ? Stats.mean(array.slice(lengthDiv - 1, lengthDiv + 1)) : array[lengthDiv]
   }
-  mode (array = this.data) {
-    const numberToFrequency = arrayToFrequencyMap(array)
+  mode () {
+    const numberToFrequency = arrayToFrequencyMap(this.data)
     let max = 0
     let maxKeys = []
     let equalElements = 0
@@ -41,11 +40,14 @@ class Stats {
         equalElements += val
       }
     })
-    return equalElements === array.length ? [] : maxKeys
+    return equalElements === this.data.length ? [] : maxKeys
   }
-  static round (a) {
-    if (typeof a !== 'number') throw 'to round please provide a valid number'
-    return a.toFixed(2)
+  static round (n) {
+    if (typeof n !== 'number') throw `round called with arg ${n}: not a number`
+    return n.toFixed(2)
+  }
+  static mean (numbersArray) {
+    return numbersArray.reduce((acc, el) => acc + el, 0) / numbersArray.length
   }
 }
 
